@@ -1,12 +1,32 @@
 ---
 layout: post
-title: "Understanding AXI4-Lite"
+title: "Understanding and implementing AXI4-Lite"
 description: "Explaination of the basics of AXI4-Lite and implementing it on a UART peripheral."
 comments: true
 keywords: "AXI4-Lite,AXI4,AMBA,AXI4-Stream,AMBA,AXI,UART"
 ---
 
-Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+The AXI bus is a widely used bus standard for on-chip communication. Its official documentation called the AMBA AXI protocol, maintained by ARM, is around 300 pages long (pretty intimidating if you ask me) but in this post we will only focus on the part A and B since they cover the features necessary to build a AXI4-Lite slave first and then a AXI4-Lite master.
+
+### Why use a bus standard?
+When learning a new technology I always tend to ask myself "why is it designed this way?", "what problems was it designed to solve?". In this case the answer is pretty straightforward. Consider the following situation:
+
+
+In the diagram we can see 3 modules 
+
+### Understanding AXI4 Transactions
+The AXI4 specification defines 5 different channels of communication between a master and a slave:
+
+1. Write Address Channel (AW)
+2. Write Data Channel (W)
+3. Write Response Channel (B)
+4. Read Address Channel (AR)
+5. Read Data Channel (R)
+
+Giving an easy example of the channel flow, the read address channel (AR) will carry control information (like a register address from where to read the data from and its size) from master to slave, then the read data channel (R) will carry the data read from the slave to the master. 
+
+Each channel will contain many different signals carrying information, two of them present on every channel are the VALID and READY
+signals used in the handshake process.
 
 ### Where does it come from?
 
